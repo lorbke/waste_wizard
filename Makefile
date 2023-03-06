@@ -16,7 +16,7 @@ NAME   := libwastewiz.a
 CC        := cc
 AR        := ar rcs
 RM        := rm -f
-ADD_FLAGS := #-g -fsanitize=address,undefined
+ADD_FLAGS := -g -fsanitize=address,undefined
 CFLAGS    := #-Wall -Wextra -Werror
 
 # VPATH
@@ -25,7 +25,7 @@ VPATH     := src
 # src and obj files macros
 SRC_PATH  := src
 OBJ_PATH  := obj
-SRC       := waste_wizard.c waste_wizard_free_funcs.c waste_wizard_obj.c
+SRC       := ww_area.c ww_free_func.c ww_obj.c ww_waste.c
 OBJ       := $(SRC:%.c=$(OBJ_PATH)/%.o)
 
 ###################################

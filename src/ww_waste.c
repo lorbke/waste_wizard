@@ -1,10 +1,9 @@
 
 #include "waste_wizard.h" // t_waste
+#include "private_waste_wizard.h" // wizard_init
 #include <stdlib.h> // NULL, malloc, free
 #include <sys/errno.h> // errno
 #include <unistd.h> // write
-
-t_waste	**waste_init(void);
 
 /**
  * It creates a new t_waste struct, and returns a pointer to it
@@ -22,7 +21,7 @@ static t_waste	*create_waste(void *alloc, void (*func_free)(void *))
 	new = malloc(sizeof(t_waste));
 	if (new == NULL)
 	{
-		ww_free_all_waste();
+		ww_free_all_areas();
 		exit(errno);
 	}
 	new->alloc = alloc;
@@ -32,6 +31,27 @@ static t_waste	*create_waste(void *alloc, void (*func_free)(void *))
 		new->func_free = func_free;
 	new->next = NULL;
 	return (new);
+}
+
+/**
+ * It frees all the waste in the waste list.
+ */
+void	free_waste(int area_num)
+{
+	t_area	*area;
+	t_waste	*waste;
+	t_waste	*temp;
+
+	area = ww_get_area(area_num);
+	waste = area->waste;
+	while (waste != NULL)
+	{
+		temp = waste;
+		waste = waste->next;
+		temp->func_free(temp->alloc);
+		free(temp);
+	}
+	waste = NULL;
 }
 
 /**
@@ -63,14 +83,18 @@ static t_waste	*append_waste(t_waste *main, t_waste *append)
  * @param alloc the pointer to the allocated memory
  * @param func_free The function to call to free the memory.
  */
-void	ww_add_waste(void *alloc, void (*func_free)(void *))
+void	ww_add_waste(int area_num, void *alloc, void (*func_free)(void *))
 {
+	t_area	*area;
 	t_waste	*new;
-	t_waste	**waste;
+	t_waste	*waste;
 
+	area = ww_get_area(area_num);
+	if (area == NULL)
+		return ;
+	waste = area->waste;
 	new = create_waste(alloc, func_free);
-	waste = waste_init();
-	*waste = append_waste(*waste_init(), new);
+	waste = append_waste(waste, new);
 }
 
 /**
@@ -84,35 +108,20 @@ void	ww_add_waste(void *alloc, void (*func_free)(void *))
  * 
  * @return A pointer to a newly allocated memory block.
  */
-void	*ww_malloc_and_add(size_t size, size_t count)
+void	*ww_malloc_and_add(int area_num, size_t size, size_t count)
 {
+	t_area	*area;
 	void	*alloc;
 
+	area = ww_get_area(area_num);
+	if (area == NULL)
+		return (NULL);
 	alloc = malloc(size * count);
 	if (alloc == NULL)
 	{
-		ww_free_all_waste();
+		ww_free_all_areas();
 		exit(errno);
 	}
-	ww_add_waste(alloc, free);
+	ww_add_waste(area_num, alloc, free);
 	return (alloc);
-}
-
-/**
- * It frees all the waste in the waste list.
- */
-void	ww_free_all_waste(void)
-{
-	t_waste	*waste;
-	t_waste	*temp;
-
-	waste = ww_get_waste();
-	while (waste != NULL)
-	{
-		temp = waste;
-		waste = waste->next;
-		temp->func_free(temp->alloc);
-		free(temp);
-	}
-	*waste_init() = NULL;
 }
