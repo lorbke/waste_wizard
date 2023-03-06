@@ -17,7 +17,7 @@ CC        := cc
 AR        := ar rcs
 RM        := rm -f
 ADD_FLAGS := #-g -fsanitize=address,undefined
-CFLAGS    := -Wall -Wextra -Werror
+CFLAGS    := #-Wall -Wextra -Werror
 
 # VPATH
 VPATH     := src
@@ -39,6 +39,8 @@ endif
 ###################################
 #	RULES						  #
 ###################################
+
+.PHONY: all clean fclean re
 
 # file targets
 $(NAME): $(OBJ_PATH) $(OBJ)
@@ -65,4 +67,3 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re
