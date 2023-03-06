@@ -29,8 +29,8 @@ in the parameters and also add the allocation to the static waste list.
 ww_malloc_and_add(size, count);
 
 /*
-Calling this function will free every allocation in the waste list,
-using the provided free function.
+Calling this function will free every allocation in the waste list
+by using the provided free function.
 */
 ww_free_all_waste();
 ```
