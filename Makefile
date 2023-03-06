@@ -40,8 +40,6 @@ endif
 #	RULES						  #
 ###################################
 
-.PHONY: all clean fclean re
-
 # file targets
 $(NAME): $(OBJ_PATH) $(OBJ)
 	@echo -e -n "$(BLUE)Creating: waste_wizard library: $(RESET)"
@@ -66,4 +64,6 @@ fclean: clean
 	@echo -e "$(RED)make: waste_wizard cleaned!$(RESET)"
 
 re: fclean all
+
+.PHONY: all clean fclean re
 
