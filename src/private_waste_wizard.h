@@ -16,8 +16,7 @@ typedef struct s_area
 	struct s_area	*next;
 }	t_area;
 
-
-void	free_waste(int area_num);
+void	free_waste(t_area *area);
 
 t_area	*create_area(int area_num);
 

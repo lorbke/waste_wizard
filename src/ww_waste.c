@@ -36,13 +36,11 @@ static t_waste	*create_waste(void *alloc, void (*func_free)(void *))
 /**
  * It frees all the waste in the waste list.
  */
-void	free_waste(int area_num)
+void	free_waste(t_area *area)
 {
-	t_area	*area;
 	t_waste	*waste;
 	t_waste	*temp;
 
-	area = ww_get_area(area_num);
 	if (area == NULL)
 		return ;
 	waste = area->waste;
@@ -89,14 +87,12 @@ void	ww_add_waste(int area_num, void *alloc, void (*func_free)(void *))
 {
 	t_area	*area;
 	t_waste	*new;
-	t_waste	*waste;
 
 	area = ww_get_area(area_num);
 	if (area == NULL)
 		return ;
-	waste = area->waste;
 	new = create_waste(alloc, func_free);
-	waste = append_waste(waste, new);
+	area->waste = append_waste(area->waste, new);
 }
 
 /**

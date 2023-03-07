@@ -45,7 +45,8 @@ void	ww_free_all_areas(void)
 	{
 		temp = area;
 		area = area->next;
-		free_waste(area_num);
+		free_waste(temp);
+		free(temp);
 		area_num++;
 	}
 	*area_init() = NULL;
@@ -56,7 +57,7 @@ void	ww_free_area(int area_num)
 	t_area	*area;
 
 	area = ww_get_area(0);
-	free_waste(area_num);
+	free_waste(area);
 }
 
 void	ww_add_area(int area_num)
