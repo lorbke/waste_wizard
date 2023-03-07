@@ -4,7 +4,7 @@
 #include <stdlib.h> // NULL, malloc, free
 #include <sys/errno.h> // errno
 
-static t_area	*create_area(int area_num)
+t_area	*create_area(int area_num)
 {
 	t_area	*new;
 
@@ -46,7 +46,6 @@ void	ww_free_all_areas(void)
 		temp = area;
 		area = area->next;
 		free_waste(area_num);
-		free(temp);
 		area_num++;
 	}
 	*area_init() = NULL;
@@ -55,21 +54,9 @@ void	ww_free_all_areas(void)
 void	ww_free_area(int area_num)
 {
 	t_area	*area;
-	t_area	*temp;
-	int		i;
 
 	area = ww_get_area(0);
-	i = 0;
-	while (area != NULL)
-	{
-		temp = area;
-		area = area->next;
-		free_waste(i);
-		free(temp);
-		i++;
-	}
-	if (area)
-		area->waste = NULL;
+	free_waste(area_num);
 }
 
 void	ww_add_area(int area_num)

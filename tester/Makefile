@@ -38,7 +38,7 @@ all:
 	$(CC) $(FLAGS) $(ADD_FLAGS) $(SRC) $(LIB_INC) $(LIB_LINK) -o $(NAME)
 	@echo -e "$(YELLOW)Running test: $(RESET)"
 	@echo
-	@./$(NAME) | cat -e > out
+	@./$(NAME) | cat -e
 
 #@valgrind --leak-check=full ./$(NAME) | cat -e
 

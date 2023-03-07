@@ -13,6 +13,8 @@ int	main(void)
 	ww_add_area(1);
 	str = ww_malloc_and_add(1, 1, 100);
 	str = ww_malloc_and_add(0, 1, 100);
+	// ww_free_area(0);
+	// ww_free_area(1);
 	ww_free_all_areas();
 	printf("1\n");
 	return (0);

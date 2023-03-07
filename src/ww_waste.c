@@ -43,6 +43,8 @@ void	free_waste(int area_num)
 	t_waste	*temp;
 
 	area = ww_get_area(area_num);
+	if (area == NULL)
+		return ;
 	waste = area->waste;
 	while (waste != NULL)
 	{
@@ -51,7 +53,7 @@ void	free_waste(int area_num)
 		temp->func_free(temp->alloc);
 		free(temp);
 	}
-	waste = NULL;
+	area->waste = NULL;
 }
 
 /**

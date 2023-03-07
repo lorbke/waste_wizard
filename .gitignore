@@ -1,3 +1,5 @@
 .vscode
 libwastewiz.a
 obj
+tester/tester.dSYM
+tester/out
