@@ -46,7 +46,7 @@ ww_malloc_and_add(area_num, size, count);
 
 /*
 Calling this function will free every allocation in the waste list in the
-specified area by using the provided free function.
+specified area by using the free function that was provided earlier.
 */
 ww_free_area(area_num);
 
