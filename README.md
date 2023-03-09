@@ -9,6 +9,11 @@ The garbage collector works by providing a wrapper function for malloc,
 which besides allocating memory will also add a pointer to the allocation 
 to a static waste list which can then be freed later on in the program.
 
+Data that was allocated with the original malloc can also be added addendum. 
+This is especially helpful when your program or function deals with a large
+amount of structs or arrays and it becomes inefficient when every 
+allocation is added to the waste list separately.
+
 
 ## Usage
 
@@ -39,7 +44,7 @@ Beware: Replacing every malloc in your code with this wrapper can lead to
 significant performance slumps because the list of pointers that is managed
 by the wizard can become very big. It is recommended to allocate big data
 structures like structs, lists or arrays with the normal malloc and to use
-ww_add_waste to add the head pointer to the wizard.
+ww_add_waste to add the head pointer to the waste list.
 */
 ww_malloc_and_add(area_num, size, count);
 
