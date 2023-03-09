@@ -6,8 +6,8 @@ Waste Wizard is a simple garbage collector that can be used by C programs.
 ## Explanation
 
 The garbage collector works by providing a wrapper function for malloc, 
-which besides allocating memory will also add a pointer to the allocation 
-to a static waste list which can then be freed later on in the program.
+which besides allocating memory will also add an allocation pointer to
+a waste list, which can then be freed later on in the program.
 
 Data that was allocated with the original malloc can also be added addendum. 
 This is especially helpful when your program or function deals with a large
